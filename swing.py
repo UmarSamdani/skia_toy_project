@@ -53,14 +53,19 @@ t = 0
 
 running = True
 recording = True
+first_frame = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    t += clock.get_time() / 1000.0 # t is time in seconds
-    record_time += clock.get_time() / 1000.0
+    dt = clock.get_time() / 1000.0 # t is time in seconds
+    if first_frame: 
+        dt = 1/60
+        first_frame = False
 
+    t += dt
+    record_time += dt
 
     with surface as canvas:
         canvas.drawColor(skia.ColorSetRGB(135, 198, 239))
